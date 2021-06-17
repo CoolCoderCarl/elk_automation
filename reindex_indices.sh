@@ -6,13 +6,13 @@
 ###########################################
 ### CREATE EMPTY INDICES FOR REINDEXING ###
 ###########################################
-echo -e '\e[34m\e[1m-------- CREATE EMPTY INDICES FOR REINDEXING --------'
+echo -e '\e[34m\e[1m-------- CREATE EMPTY INDICES FOR REINDEXING --------\e[0m'
 cat $1 | xargs -i curl -k -XPUT "https://localhost:9200/{}-reindex" -u user:password
 
 ############################################
 ### BACKUP ORIGINAL INDICES TO REINDEXED ###
 ############################################
-echo -e '\e[34m\e[1m-------- BACKUP ORIGINAL INDICES TO REINDEXED --------'
+echo -e '\e[34m\e[1m-------- BACKUP ORIGINAL INDICES TO REINDEXED --------\e[0m'
 
 for index in `cat $1`; do
 
@@ -30,19 +30,19 @@ done
 ###############################
 ### DELETE ORIGINAL INDICES ###
 ###############################
-echo -e '\e[34m\e[1m-------- DELETE ORIGINAL INDICES --------'
+echo -e '\e[34m\e[1m-------- DELETE ORIGINAL INDICES --------\e[0m'
 cat $1 | xargs -i curl -k -XDELETE "https://localhost:9200/{}" -u user:password
 
 #####################################################
 ### CREATE NEW EMPTY INDICES FOR ORIGINAL INDICES ###
 #####################################################
-echo -e '\e[34m\e[1m-------- CREATE NEW EMPTY INDICES FOR ORIGINAL INDICES --------'
+echo -e '\e[34m\e[1m-------- CREATE NEW EMPTY INDICES FOR ORIGINAL INDICES --------\e[0m'
 cat $1 | xargs -i curl -k -XPUT "https://localhost:9200/{}" -u user:password
 
 ##################################################################
 ### RETURN DATA FROM REINDEXED INDICES TO NEW ORIGINAL INDICES ###
 ##################################################################
-echo -e '\e[34m\e[1m-------- RETURN DATA FROM REINDEXED INDICES TO NEW ORIGINAL INDICES --------'
+echo -e '\e[34m\e[1m-------- RETURN DATA FROM REINDEXED INDICES TO NEW ORIGINAL INDICES --------\e[0m'
 
 for index in `cat $1`; do 
 
@@ -60,12 +60,12 @@ done
 ################################
 ### DELETE REINDEXED INDICES ###
 ################################
-echo -e '\e[34m\e[1m-------- DELETE REINDEXED INDICES --------'
+echo -e '\e[34m\e[1m-------- DELETE REINDEXED INDICES --------\e[0m'
 cat $1 | xargs -i curl -k -XDELETE "https://localhost:9200/{}-reindex" -u user:password
 
 ###
 ###
-echo -e '\e[32m\e[1m-------- REINDEXING SUCCESSFUL --------'
+echo -e '\e[32m\e[1m-------- REINDEXING SUCCESSFUL --------\e[0m'
 ### FINISH
 ###
 ###
